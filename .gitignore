@@ -46,3 +46,6 @@
 # Binaries
 out/
 build/
+
+# Reference
+!reference_outlet.out
