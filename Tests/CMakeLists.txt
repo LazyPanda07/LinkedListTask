@@ -28,6 +28,7 @@ target_link_libraries(
 
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/../assets/ DESTINATION .)
+install(DIRECTORY reference/ DESTINATION .)
 
 if (UNIX)
 	install(FILES ${CMAKE_SOURCE_DIR}/../LinkedList/LinkedListTask DESTINATION . PERMISSIONS OWNER_EXECUTE)

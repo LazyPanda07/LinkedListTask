@@ -2,7 +2,7 @@
 
 #include <filesystem>
 #include <vector>
-#include <ostream>
+#include <fstream>
 
 namespace list
 {
@@ -44,6 +44,8 @@ namespace list
 		~LinkedList();
 
 		friend std::ostream& operator <<(std::ostream& stream, const LinkedList& list);
+
+		friend std::ofstream& operator <<(std::ofstream& stream, const LinkedList& list);
 	};
 	
 }

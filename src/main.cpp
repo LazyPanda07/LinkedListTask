@@ -29,11 +29,15 @@ int main(int argc, char** argv) try
 
 	if (argc == 2 && std::string_view(argv[1]) == "to_file")
 	{
-		std::ofstream("list.txt", std::ios_base::binary) << list;
+		std::ostringstream stream;
+
+		stream << list;
+
+		std::ofstream("list.txt", std::ios_base::binary) << stream.str();
 	}
 	else
 	{
-		std::cout << list;
+		std::ofstream("outlet.out", std::ios_base::binary) << list;
 	}
 	
 	return 0;

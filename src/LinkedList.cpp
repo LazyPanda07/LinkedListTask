@@ -124,4 +124,39 @@ namespace list
 
 		return stream;
 	}
+
+	std::ofstream& operator <<(std::ofstream& stream, const LinkedList& list)
+	{
+		if (!list.size)
+		{
+			return stream;
+		}
+		auto writeNodeData = [&stream](const LinkedList::ListNode* node)
+			{
+				uint64_t dataSize = node->data.size();
+
+				stream.write(reinterpret_cast<char*>(&dataSize), sizeof(dataSize));
+				stream.write(node->data.data(), dataSize);
+			};
+
+		const LinkedList::ListNode* node = list.head;
+
+		while (node)
+		{
+			bool hasRand = static_cast<bool>(node->rand);
+
+			stream.write(reinterpret_cast<char*>(&hasRand), sizeof(hasRand));
+			
+			writeNodeData(node);
+			
+			if (hasRand)
+			{
+				writeNodeData(node->rand);
+			}
+
+			node = node->next;
+		}
+
+		return stream;
+	}
 }
