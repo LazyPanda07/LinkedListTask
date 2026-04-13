@@ -8,9 +8,9 @@ constexpr std::string_view reference = "0: \"apple\" => \"carrot\"\n1: \"banana\
 TEST(LinkedList, Add)
 {
 #ifdef __LINUX__
-	std::system("./LinkedListTask");
+	std::system("./LinkedListTask to_file");
 #else
-	std::system("LinkedListTask.exe");
+	std::system("LinkedListTask.exe to_file");
 #endif
 	std::ifstream list("list.txt", std::ios_base::binary);
 

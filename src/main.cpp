@@ -27,8 +27,15 @@ int main(int argc, char** argv) try
 		);
 	}
 
-	std::ofstream("list.txt", std::ios_base::binary) << list;
-
+	if (argc == 2 && std::string_view(argv[1]) == "to_file")
+	{
+		std::ofstream("list.txt", std::ios_base::binary) << list;
+	}
+	else
+	{
+		std::cout << list;
+	}
+	
 	return 0;
 }
 catch (const std::exception& e)

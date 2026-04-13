@@ -30,7 +30,7 @@ install(TARGETS ${PROJECT_NAME} DESTINATION .)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/../assets/ DESTINATION .)
 
 if (UNIX)
-	install(FILES ${CMAKE_SOURCE_DIR}/../LinkedList/LinkedListTask DESTINATION .)
+	install(FILES ${CMAKE_SOURCE_DIR}/../LinkedList/LinkedListTask DESTINATION . PERMISSIONS OWNER_EXECUTE)
 
 	add_definitions(-D__LINUX__)
 else()
