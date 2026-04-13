@@ -36,6 +36,8 @@ namespace list
 
 		void addPendingRandIndex(ListNode* node, int index);
 
+		void onAdd(int randIndex);
+
 	public:
 		LinkedList();
 

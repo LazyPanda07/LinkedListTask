@@ -13,11 +13,25 @@ namespace list
 
 	LinkedList::ListNode* LinkedList::find(int index) const
 	{
-		ListNode* node = head;
+		ListNode* node = nullptr;
 
-		for (int i = 0; i < index; i++)
+		if (size - index < index)
 		{
-			node = node->next;
+			node = current;
+
+			for (int i = size - 1; i > index; i--)
+			{
+				node = node->prev;
+			}
+		}
+		else
+		{
+			node = head;
+
+			for (int i = 0; i < index; i++)
+			{
+				node = node->next;
+			}
 		}
 
 		return node;
@@ -28,6 +42,18 @@ namespace list
 		if (index != -1 && index >= size)
 		{
 			pendingRandIndices.emplace_back(node, index);
+		}
+	}
+
+	void LinkedList::onAdd(int randIndex)
+	{
+		if (randIndex < size)
+		{
+			current->rand = this->find(randIndex);
+		}
+		else
+		{
+			this->addPendingRandIndex(current, randIndex);
 		}
 	}
 
@@ -47,7 +73,7 @@ namespace list
 
 			size = 1;
 
-			this->addPendingRandIndex(current, randIndex);
+			this->onAdd(randIndex);
 
 			return;
 		}
@@ -62,12 +88,7 @@ namespace list
 
 		size++;
 
-		this->addPendingRandIndex(current, randIndex);
-
-		if (randIndex < size)
-		{
-			current->rand = this->find(randIndex);
-		}
+		this->onAdd(randIndex);
 
 		if (pendingRandIndices.size())
 		{
@@ -146,9 +167,9 @@ namespace list
 			bool hasRand = static_cast<bool>(node->rand);
 
 			stream.write(reinterpret_cast<char*>(&hasRand), sizeof(hasRand));
-			
+
 			writeNodeData(node);
-			
+
 			if (hasRand)
 			{
 				writeNodeData(node->rand);
