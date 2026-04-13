@@ -27,7 +27,7 @@ int main(int argc, char** argv) try
 		);
 	}
 
-	std::cout << list;
+	std::ofstream("list.txt", std::ios_base::binary) << list;
 
 	return 0;
 }

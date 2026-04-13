@@ -116,7 +116,7 @@ namespace list
 
 		while (node)
 		{
-			stream << std::format(R"({}: "{}" => "{}")", index, node->data, (node->rand ? node->rand->data : "nullptr")) << std::endl;
+			stream << std::format("{}: \"{}\" => \"{}\"\n", index, node->data, (node->rand ? node->rand->data : "nullptr"));
 
 			node = node->next;
 			index++;

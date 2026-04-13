@@ -3,21 +3,18 @@
 #include <fstream>
 #include <sstream>
 
-constexpr std::string_view reference = R"(0: "apple" => "carrot"
-1: "banana" => "nullptr"
-2: "carrot" => "banana"
-)";
+constexpr std::string_view reference = "0: \"apple\" => \"carrot\"\n1: \"banana\" => \"nullptr\"\n2: \"carrot\" => \"banana\"\n";
 
 TEST(LinkedList, Add)
 {
 #ifdef __LINUX__
-	std::system("./LinkedListTask > out.txt");
+	std::system("./LinkedListTask");
 #else
-	std::system("LinkedListTask.exe > out.txt");
+	std::system("LinkedListTask.exe");
 #endif
-	std::ifstream out("out.txt");
+	std::ifstream list("list.txt", std::ios_base::binary);
 
-	ASSERT_EQ((std::ostringstream() << out.rdbuf()).str(), reference);
+	ASSERT_EQ((std::ostringstream() << list.rdbuf()).str(), reference);
 }
 
 int main(int argc, char** argv)
