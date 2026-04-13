@@ -53,7 +53,7 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v8
       with:
-        name: ${{ matix.config.download-artifact-name }}
+        name: ${{ matrix.config.download-artifact-name }}
         path: LinkedList
 
     - name: Enable CL
