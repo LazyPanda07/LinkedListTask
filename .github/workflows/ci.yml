@@ -28,7 +28,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install-dir -G "Ninja" ..
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/LinkedList -G "Ninja" ..
         cmake --build . -j
         cmake --install .
 
@@ -36,4 +36,45 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: ${{ matrix.config.upload-artifact-name }}
-        path: build/bin/install-dir
+        path: LinkedList
+
+  tests:
+    strategy:
+      matrix:
+        config:
+          - { os: windows-latest, download-artifact-name: Windows }
+          - { os: ubuntu-latest, download-artifact-name: Linux }
+    runs-on: ${{ matrix.config.os }}
+    needs: build
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Download artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: ${{ matix.config.download-artifact-name }}
+        path: LinkedList
+
+    - name: Enable CL
+      if: ${{ matrix.config.os == 'windows-latest' }}
+      uses: ilammy/msvc-dev-cmd@v1.13.0
+
+    - name: Build tests
+      working-directory: Tests
+      run: |
+        mkdir build
+        cd build
+        cmake -DCMAKE_INSTALL_PREFIX=install-dir -G "Ninja" ..
+        cmake --build . -j
+        cmake --install .
+
+    - name: Run tests
+      if: ${{ matrix.config.os == 'windows-latest' }}
+      working-directory: Tests/build/install-dir
+      run: .\Tests
+
+    - name: Run tests
+      if: ${{ matrix.config.os == 'ubuntu-latest' }}
+      working-directory: Tests/build/install-dir
+      run: ./Tests

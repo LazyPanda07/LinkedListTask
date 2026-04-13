@@ -27,7 +27,7 @@ int main(int argc, char** argv) try
 		);
 	}
 
-	std::cout << list << std::endl;
+	std::cout << list;
 
 	return 0;
 }
