@@ -65,6 +65,25 @@ namespace list
 
 	}
 
+	LinkedList::LinkedList(LinkedList&& other) noexcept
+	{
+		(*this) = std::move(other);
+	}
+
+	LinkedList& LinkedList::operator =(LinkedList&& other) noexcept
+	{
+		pendingRandIndices = std::move(other.pendingRandIndices);
+		head = other.head;
+		current = other.current;
+		size = other.size;
+
+		other.head = nullptr;
+		other.current = nullptr;
+		other.size = 0;
+
+		return *this;
+	}
+
 	void LinkedList::addNode(std::string_view data, int randIndex)
 	{
 		if (current->data.empty())

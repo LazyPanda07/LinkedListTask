@@ -9,7 +9,7 @@ TEST(LinkedList, Add)
 {
 	constexpr std::string_view reference = "0: \"apple\" => \"carrot\"\n1: \"banana\" => \"nullptr\"\n2: \"carrot\" => \"banana\"\n";
 
-	runLinkedListTask({ "to_file" });
+	runLinkedListTask({ "to_file_as_print" });
 
 	std::ifstream list("list.txt", std::ios_base::binary);
 
@@ -18,7 +18,7 @@ TEST(LinkedList, Add)
 
 TEST(LinkedList, Serialization)
 {
-	runLinkedListTask();
+	runLinkedListTask({ "serialize" });
 
 	std::ifstream reference("reference_outlet.out", std::ios::binary);
 	std::ifstream in("outlet.out", std::ios::binary);
