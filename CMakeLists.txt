@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.27.0)
 
 set(CMAKE_CXX_STANDARD 20)
-option(WITH_ASSETS "Also install inlet.in" ON)
+option(WITH_ASSETS "Also install default inlet.in" ON)
 
 project(LinkedListTask)
 
